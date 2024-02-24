@@ -62,6 +62,31 @@ Với input như trên, app sẽ trả lại toàn bộ username và password d�
 Về kỹ thuật sử dụng UNION tôi sẽ đề cập thêm ở bài viết này:
 https://github.com/phtuanthanh/LabPortwigger/blob/SQL-Injection/SQL%20Injection%20UNION%20Attacks.md
 
+8. Blind SQL Injection vulnerabilities - Lổ hổng SQL Injection mù
+
+Có nhiều trường hợp xảy ra khi ta cứ bị mãi không tìm được gì với SQL Injection. Khi đó, app không trả về một kết quả gì, hoặc các thông báo lỗi do database trả về không thật sự chi tiết. Đến lúc này, ta vẫn có thể sự dụng kỹ thuật này để khai thác tìm ra các dữ liệu cần đánh cắp. Tuy nhiên, kỹ thuật này mang một dáng vẻ khá bao trùm, tổng quan và khó thực hiện.
+
+Khai thác Blind SQL Injection dựa vào nhiều yếu tố mang tính tự nhiên của database và http, trình duyệt. Có thể kể đến như sau:
++ Bạn có thể thay đổi các biểu thức logic toán học trong các câu truy vấn, và dựa vào kết quả trả về của app, để có thể tìm ra manh mối. Các biểu thức login có thể biểu thức logic đúng sai(Boolean), hoặc biểu thức có điều kiện ví dụ như chia cho 0.
++ Bạn cũng có thể xem xét dựa trên thời gian phản hồi của các truy vấn. Từ đó bạn có thể suy luận dựa trên thời gian phản hồi thực của app.
++ OAST??
+
+Kỹ thuật này sẽ được đề cập thêm ở bài viết này:
+
+9. Second-order SQL Injection - Bậc 2 của SQL Injection
+Bậc 1 của SQL Injection xảy ra ngay khi một input từ HTTP request và xảy ra ngay lập tức tại nơi tấn công. Tuy nhiên, với bậc 2, SQL Injection xảy ra ở nơi khác mà không phải tại nơi đưa truy vấn không hợp lệ vào.
+
+SQL-Injection bậc 2 được thực hiện dựa trên việc các thông tin độc hại được đưa vào bằng các lỗi SQL Injection và được lưu trữ trong database, khi có cơ hội sẽ sử dụng thông tin độc hại đó để xâm nhập và tấn công. 
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/0c6feb70-ac69-487b-8381-5f05881f1f58)
+Thêm một tài khoản nào đó có quyền như admin vào database, rồi sử dụng nó để đăng nhập vào hệ thống.
+
+Thực ra, bậc 2 xảy ra khi các dev nhận biết, và bắt đầu phòng tránh về SQL-Injection. Họ bắt đầu phòng tránh ở chính nơi input nhập vào. Tuy nhiên lại không kiểm tra nhưng dữ liệu có thể được lưu trữ mà không phát tán ra ngay lúc tấn công.
+
+10. SQL Injection cheat sheet
+
+https://portswigger.net/web-security/sql-injection/cheat-sheet
+11.
+12.
 
 
 
