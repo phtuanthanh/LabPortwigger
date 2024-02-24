@@ -60,7 +60,7 @@ Nếu input được thay đổi thành:
 ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/26c8d28e-468c-4c2d-b13f-f7bbea52678c)
 Với input như trên, app sẽ trả lại toàn bộ username và password dọc theo tên và miêu tả của các sản phẩm. Chúng không liên quan gì đến nhau, chỉ là hai bảng được gộp lại.
 Về kỹ thuật sử dụng UNION tôi sẽ đề cập thêm ở bài viết này:
-
+https://github.com/phtuanthanh/LabPortwigger/blob/SQL-Injection/SQL%20Injection%20UNION%20Attacks.md
 
 
 
