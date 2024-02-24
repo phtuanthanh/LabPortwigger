@@ -29,7 +29,7 @@ d. Blind SQL Injetion ( dựa trên các chi tiết phản hồi của app).
 
  Khi user click vào Gifts, app sẽ tự truy vấn SELECT ở bảng products với điều kiện category="Gifts" và released=1. Released là để kiểm tra món hàng đã được phát hành chưa.
 Trong một số phiên bản SQL, comment sẽ được sự dụng với kí hiệu "--". Tức là sau "--" các truy vấn sẽ bị vô hiệu hóa. Điều gì xảy ra nếu ta thay đổi URL như sau:
- ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/d12d7357-6844-4e66-9e1a-4d7a75645ccf)
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/2247a288-99a4-4757-81bf-da778718dff3)
 
 Kết quả của truy vấn SQL là: 
  ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/5e5500fc-d8e7-4038-a152-ad56a1db287d)
