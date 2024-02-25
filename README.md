@@ -3,19 +3,30 @@ SQL Injection
 SQL Injection là một loại lỗ hổng web cho phép các attacker  can thiệp vào cơ sở dữ liệu của app bằng các câu lệnh truy vấn (query). Trong các trường hợp, các attacker có thể chỉnh sửa, xóa dữ liệu của app, gây ra ảnh hưởng và thay đổi cho app. Trong một số trường hợp leo thang, attacker có thể can thiệp leo thang lên sever hoặc cơ sở hạ tầng( back-end).
 2. How to detect SQL Injection vulnerabilities? --> Làm cách nào để phát hiện rằng một app có lổ hổng SQL Injection
 Bạn có thể phát hiện SQL Injection bằng việc sử dụng một bộ các kỹ thuật lặp đi lặp lại trên app.  Dưới đây là một số thứ bạn cần để ý:
+
 •	Dấu ' và nhìn được sự bất thường diễn ra.
+
 •	Một số cú pháp SQL và xem xét sự thay đổi.
+
 •	Các điều kiện đúng sai như OR 1=1 and OR 1=2, và quan sát sự khác nhau trong phản hồi của app(Blind)
+
 •	Thời gian chờ khi sử thực thi một số câu lệnh SQL và thời gian trả lời.
+
 •	OSAT?
+
 Ngoài ra, ta có thể sử dụng app Burp Scanner để có thể tìm kiếm SQL Injection.
-3. SQL injection in different parts of the query --> Các câu truy vấn khác nhau của SQL Injection
+4. SQL injection in different parts of the query --> Các câu truy vấn khác nhau của SQL Injection
 Thường thì SQL Injection thường xảy ra ở truy vấn WHERE một bộ phận của truy vấn SELECT. Sau đây là một số truy vấn:
+
 •	Toán tử UPDATE có thể update giá trị hoặc WHERE truy vấn.
+
 •	Toán tử INSERT nhập giá trị vào.
+
 •	Toán tử SELECT cho ra table hoặc cột.
+
 •	ORDER BY liên kết các table bằng so sánh.
-4. Các loại SQL Injection chủ yếu
+
+5. Các loại SQL Injection chủ yếu
 Có rất nhiều loại tấn công, kĩ thuật, lổ hổng khác nhau về SQL Injection xảy ra ở nhiều trường hợp khác nhau. Tuy nhiên có 4 loại là phổ biến:
 
 a. Retrieving hidden data ( thay đổi câu truy vấn để đưa ra các thông tin thêm)
