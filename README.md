@@ -17,11 +17,16 @@ Thường thì SQL Injection thường xảy ra ở truy vấn WHERE một bộ 
 •	ORDER BY liên kết các table bằng so sánh.
 4. Các loại SQL Injection chủ yếu
 Có rất nhiều loại tấn công, kĩ thuật, lổ hổng khác nhau về SQL Injection xảy ra ở nhiều trường hợp khác nhau. Tuy nhiên có 4 loại là phổ biến:
+
 a. Retrieving hidden data ( thay đổi câu truy vấn để đưa ra các thông tin thêm)
+
 b. Subverting application logic ( sử dụng câu truy vấn đề có thể can thiệp vào bên trong app)
+
 c. UNION attacks ( láy các dữ liệu từ các bảng khác nhau trong database.
+
 d. Blind SQL Injetion ( dựa trên các chi tiết phản hồi của app).
-5. Retrieving hidden data - Truy xuất các dữ liệu ẩn
+
+6. Retrieving hidden data - Truy xuất các dữ liệu ẩn
  ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/0475b206-16ea-4bcc-9d20-441c4735da9a)
 
 Ảnh trên là hình biểu diễn đường dẫn của app shopping, khi user clicks vào Gifts category.  Thực ra, SQL sẽ được truy vấn như sau khi click vào Gifts.
