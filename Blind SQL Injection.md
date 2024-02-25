@@ -26,6 +26,22 @@ Tiếp theo, ta thực hiện tiếp:
 Nếu trả về không phải là massage như lúc nãy, thì ngược lại, ký tự đầu tiên trong mật khẩu không lớn hơn ký tự t. Từ đây ta có một khoảng không gian các ký tự để có thể tìm. sau đó ta cứ truy vấn dần dần như sau:
 ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/458d7114-ec44-41ae-87c7-4c0d376caa62)
 Nếu trả về là một massage "Welcome back", thì ký tự đầu tiên của password là ký tự 's'.
+Như vậy để suy luận ra được mật khẩu của user Administrator.
+
+3. Error-Based SQL Injection - Dựa trên báo lỗi của SQL Injection
+
+Tùy vào loại cơ sở dữ liệu bạn đang dùng, và kiểu lỗi được bạn nhắm đến, Error-Based SQL Injection là kỹ thuật bạn có thể dựa vào các thông báo lỗi để có thể lấy được các thông tin nhạy cảm, hay các thông tin không cho phép. Có hai dạng:
+a. Exploiting blind SQL injection by triggering conditional errors - Khai thác blind SQL injection bởi kích hoạt điều kiện gây lỗi
+
+Một vài app tạo ra các câu lệnh truy vấn tuy nhiên lại không có hành động thay đổi, tức là các truy vấn được trả về không khác nhau cho dù cú pháp khác nhau hay là boolean cũng không hề khác nhau.
+Điều này khiến cho các kỹ thuật ở mục 2 bị vô tác dụng bởi ta không phát hiện được sự thay đổi của response app. Bởi vậy, bạn có thể sửa đổi câu lệnh truy vấn để nó chỉ gây ra lỗi database ở điều kiện đúng. Thông thường, một lỗi chưa qua xử lý bởi database sẽ gây ra một số khác biệt trong app, ví dụ như một error message. Điều này giúp ích cho việc ta tìm ra được sự thật. Để biết cách thức làm việc ra sao, ta xét hai truy vấn:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/465240f0-f89b-47b3-9a71-89f48c6cb846)
++ Truy vấn 1 sẽ đưa ra ký tự 'a', không gây ra lỗi
++ Truy vấn 2 sẽ đưa ra lỗi, bởi vì chia cho 0 là sai.
+  
+Tức là nếu điều kiện là sai, sẽ in ra 'a' và ngược lại, sau đó so sánh với ký tự 'a' bên ngoài. Dựa vào đây, ta có thể thực hiện attacks như sau:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/6d62f563-55cb-4970-8872-eed1fd8e095a)
+Sử dụng cách này tương tự với mục 2, có thể tìm ra được password. Nếu gây ra lỗi tức là dự đoán của ta trong câu truy vấn là đúng, và ngược lại.
 
 
 
