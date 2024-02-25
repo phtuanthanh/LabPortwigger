@@ -78,6 +78,7 @@ Bậc 1 của SQL Injection xảy ra ngay khi một input từ HTTP request và 
 
 SQL-Injection bậc 2 được thực hiện dựa trên việc các thông tin độc hại được đưa vào bằng các lỗi SQL Injection và được lưu trữ trong database, khi có cơ hội sẽ sử dụng thông tin độc hại đó để xâm nhập và tấn công. 
 ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/0c6feb70-ac69-487b-8381-5f05881f1f58)
+
 Thêm một tài khoản nào đó có quyền như admin vào database, rồi sử dụng nó để đăng nhập vào hệ thống.
 
 Thực ra, bậc 2 xảy ra khi các dev nhận biết, và bắt đầu phòng tránh về SQL-Injection. Họ bắt đầu phòng tránh ở chính nơi input nhập vào. Tuy nhiên lại không kiểm tra nhưng dữ liệu có thể được lưu trữ mà không phát tán ra ngay lúc tấn công.
