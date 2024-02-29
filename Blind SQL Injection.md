@@ -31,6 +31,7 @@ Như vậy để suy luận ra được mật khẩu của user Administrator.
 3. Error-Based SQL Injection - Dựa trên báo lỗi của SQL Injection
 
 Tùy vào loại cơ sở dữ liệu bạn đang dùng, và kiểu lỗi được bạn nhắm đến, Error-Based SQL Injection là kỹ thuật bạn có thể dựa vào các thông báo lỗi để có thể lấy được các thông tin nhạy cảm, hay các thông tin không cho phép. Có hai dạng:
+
 a. Exploiting blind SQL injection by triggering conditional errors - Khai thác blind SQL injection bởi kích hoạt điều kiện gây lỗi
 
 Một vài app tạo ra các câu lệnh truy vấn tuy nhiên lại không có hành động thay đổi, tức là các truy vấn được trả về không khác nhau cho dù cú pháp khác nhau hay là boolean cũng không hề khác nhau.
@@ -42,6 +43,7 @@ Một vài app tạo ra các câu lệnh truy vấn tuy nhiên lại không có 
 Tức là nếu điều kiện là sai, sẽ in ra 'a' và ngược lại, sau đó so sánh với ký tự 'a' bên ngoài. Dựa vào đây, ta có thể thực hiện attacks như sau:
 ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/6d62f563-55cb-4970-8872-eed1fd8e095a)
 Sử dụng cách này tương tự với mục 2, có thể tìm ra được password. Nếu gây ra lỗi tức là dự đoán của ta trong câu truy vấn là đúng, và ngược lại.
+
 b. Extracting sensitive data via verbose SQL error messages - Trích xuất dữ liệu nhạy cảm thông qua các thông báo lỗi SQL dài dòng
 
 Đôi khi việc cấu trúc sai trong database có thể gây ra lỗi các thông báo dài dòng. Đây có thể là điều kiện để các attacker có thể khai thác và lấy các thông tin. Trong ví dụ, khi ta injection vào dấu ngoặc kép của id:
@@ -54,6 +56,7 @@ Thỉnh thoảng,, chúng ta có thể "xúi" app, đưa ra các thông báo l�
 Thường, các dữ liệu ta cố gắng đọc là string, việc chuyển kiểu sang int sẽ bị gây lỗi. Và đây là thông báo lỗi:
 ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/1af78aba-c19c-407b-ba99-e7e817dbc5af)
 Điều này có thể giúp ích ta trong việc nếu app giới hạn, hoặc hạn chế các ký hiệu trong phản hồi có điều kiện nhằm tránh bị tấn công SQL Injection.
+
 4. Exploiting blind SQL injection by triggering time delays - Khai thác blind SQL injection bằng thời gian delay
 
 Nếu một app bắt các lỗi do databse khi các câu lệnh truy vấn SQL được thực thi và xử lý một cách gọn gẽ. Nó sẽ không gây ra những phản hồi khác nhau. Có nghĩa là các kỹ thuật trước đây sẽ không hiệu quả.
