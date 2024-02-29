@@ -87,8 +87,8 @@ Khai thác Blind SQL Injection dựa vào nhiều yếu tố mang tính tự nhi
 + Bạn cũng có thể xem xét dựa trên thời gian phản hồi của các truy vấn. Từ đó bạn có thể suy luận dựa trên thời gian phản hồi thực của app.
 + OAST??
 
-Kỹ thuật này sẽ được đề cập thêm ở bài viết này:
-
+Kỹ thuật này sẽ được đề cập chi tiết ở bài viết này:
+https://github.com/phtuanthanh/LabPortwigger/blob/SQL-Injection/Blind%20SQL%20Injection.md
 9. Second-order SQL Injection - Bậc 2 của SQL Injection
 Bậc 1 của SQL Injection xảy ra ngay khi một input từ HTTP request và xảy ra ngay lập tức tại nơi tấn công. Tuy nhiên, với bậc 2, SQL Injection xảy ra ở nơi khác mà không phải tại nơi đưa truy vấn không hợp lệ vào.
 
@@ -101,8 +101,10 @@ Thực ra, bậc 2 xảy ra khi các dev nhận biết, và bắt đầu phòng 
 
 10. SQL Injection cheat sheet
 
-https://portswigger.net/web-security/sql-injection/cheat-sheet
-11.
+Hiện nay các app sử dụng đa dạng các loại database, chúng có ký tự khác nhau, cú pháp khác nhau. Dẫn đến sự khác nhau trong các kỹ thuật SQL Injection, vậy nên đây là bộ tổng quát các ký tự, điểm khác nhau của các database phố biến:
+ https://portswigger.net/web-security/sql-injection/cheat-sheet
+ 
+
 12.
 
 
