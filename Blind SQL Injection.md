@@ -42,6 +42,35 @@ Một vài app tạo ra các câu lệnh truy vấn tuy nhiên lại không có 
 Tức là nếu điều kiện là sai, sẽ in ra 'a' và ngược lại, sau đó so sánh với ký tự 'a' bên ngoài. Dựa vào đây, ta có thể thực hiện attacks như sau:
 ![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/6d62f563-55cb-4970-8872-eed1fd8e095a)
 Sử dụng cách này tương tự với mục 2, có thể tìm ra được password. Nếu gây ra lỗi tức là dự đoán của ta trong câu truy vấn là đúng, và ngược lại.
+b. Extracting sensitive data via verbose SQL error messages - Trích xuất dữ liệu nhạy cảm thông qua các thông báo lỗi SQL dài dòng
+
+Đôi khi việc cấu trúc sai trong database có thể gây ra lỗi các thông báo dài dòng. Đây có thể là điều kiện để các attacker có thể khai thác và lấy các thông tin. Trong ví dụ, khi ta injection vào dấu ngoặc kép của id:
+
+            Unterminated string literal started at position 52 in SQL SELECT * FROM tracking WHERE id = '''. Expected char
+Thông báo trả về đã đưa ra toàn bộ câu truy vấn trong app. Chúng ta có thể dễ dàng nhìn thấy nơi ta injection là sau Where. Việc này, giúp ta xác định, và dễ dàng tạo ra các payload để có thể khai thác thông tin.
+
+Thỉnh thoảng,, chúng ta có thể "xúi" app, đưa ra các thông báo lỗi trả về các kiểu dữ liệu mà ta đang nhắm đến. Ta có thể dùng hàm CAST() để làm điều đó. Đây là một hàm cho phép ta chuyền các chuyển dữ liệu khác nhau. Trong ví dụ, câu truy vấn:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/9eacac1f-10d3-47ff-9aed-1ec1e43abb80)
+Thường, các dữ liệu ta cố gắng đọc là string, việc chuyển kiểu sang int sẽ bị gây lỗi. Và đây là thông báo lỗi:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/1af78aba-c19c-407b-ba99-e7e817dbc5af)
+Điều này có thể giúp ích ta trong việc nếu app giới hạn, hoặc hạn chế các ký hiệu trong phản hồi có điều kiện nhằm tránh bị tấn công SQL Injection.
+4. Exploiting blind SQL injection by triggering time delays - Khai thác blind SQL injection bằng thời gian delay
+
+Nếu một app bắt các lỗi do databse khi các câu lệnh truy vấn SQL được thực thi và xử lý một cách gọn gẽ. Nó sẽ không gây ra những phản hồi khác nhau. Có nghĩa là các kỹ thuật trước đây sẽ không hiệu quả.
+
+Trong trường hợp này, ta có thể khai thác bằng thời gian chờ. Các câu lệnh SQL thường được xử lý đồng bộ, và rất ít gây ra thời gian chờ, thời gian chờ ở đây chủ yếu là do HTTP respone. Điều này giúp bạn có thể nhận ra được sự khác nhau trong việc trả lại các phản hồi của HTTP.
+
+Đây là một kỹ thuật đa dạng, với nhiều sự khác nhau trên các database khác nhau.  Ví dụ với Microsoft SQL Server:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/4dabca74-49d3-479b-8172-130ba3fc2ee8)
++ Với truy vấn 1, nó sẽ không gây ra delay vì 1=2 là sai.
++ Với truy vấn 2, nó sẽ gây delay vì 1=1 là đúng
+
+Áp dụng kỹ thuật trên, ta có thể sử dụng thực tế: 
+               
+    '; IF (SELECT COUNT(Username) FROM Users WHERE Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') = 1 WAITFOR DELAY '0:0:{delay}'--
+Như đã nói, kỹ thuật này khá đa dạng. Đọc thêm : https://portswigger.net/web-security/sql-injection/cheat-sheet
+
+
 
 
 
