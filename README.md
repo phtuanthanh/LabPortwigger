@@ -99,13 +99,56 @@ Thêm một tài khoản nào đó có quyền như admin vào database, rồi s
 
 Thực ra, bậc 2 xảy ra khi các dev nhận biết, và bắt đầu phòng tránh về SQL-Injection. Họ bắt đầu phòng tránh ở chính nơi input nhập vào. Tuy nhiên lại không kiểm tra nhưng dữ liệu có thể được lưu trữ mà không phát tán ra ngay lúc tấn công.
 
-10. SQL Injection cheat sheet
+10. Examining the database - Kiểm tra database
 
-Hiện nay các app sử dụng đa dạng các loại database, chúng có ký tự khác nhau, cú pháp khác nhau. Dẫn đến sự khác nhau trong các kỹ thuật SQL Injection, vậy nên đây là bộ tổng quát các ký tự, điểm khác nhau của các database phố biến:
+Hiện nay các app sử dụng đa dạng các loại database, chúng có sự giống nhau đa phần. Tuy nhân, chúng có những ký tự khác nhau, cú pháp khác nhau. Dẫn đến sự khác nhau trong các kỹ thuật SQL Injection, vậy nên đây là bộ tổng quát các ký tự, điểm khác nhau của các database phố biến:
  https://portswigger.net/web-security/sql-injection/cheat-sheet
- 
 
-12.
+Để tạo ra được một lổ hổng SQL Injection, thường chúng ta phải nắm được thông tin về database, các bảng, các cột mà database chứa.
+
+a. Truy vấn loại database và phiên bản của nó
+
+Bạn có thể lấy được cả hai thông tin trên bằng các câu truy vấn đặc biệt ứng với các database:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/74812989-b635-4a17-bba2-2139cc09034f)
+
+Ví dụ, trong một cuộc tấn công sử dụng UNION attack thì sẽ:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/4b77673a-f391-4d01-9cd9-d93f02690951)
+
+Nếu app cho phép return lại đúng thông tin. Trong trường hợp này, bạn có thể xác minh rằng đây là Microsoft SQL Sever và nhìn được version của nó:
+
+                       Microsoft SQL Server 2016 (SP2) (KB4052908) - 13.0.5026.0 (X64)
+                       Mar 18 2018 09:11:49
+                       Copyright (c) Microsoft Corporation
+                       Standard Edition (64-bit) on Windows Server 2016 Standard 10.0 <X64> (Build 14393: ) (Hypervisor)
+b.Listing the contents of the database - Liệt kê nội dung trong database
+
+Để lấy được thông tin của tất cả các bảng, cột, tên, số lượng... Trong database có một loại bảng gọi là information schema. Đây là bảng cung cấp các thông tin của database. Trong ví dụ, bạn có thể sử dụng truy vấn information_schema.tables để liệt kê các bảng trong database:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/b5a27184-c096-495b-9f26-9870698f26f9)
+
+Output được trả về là:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/977a1cc6-f675-4b82-9833-f5989f7548a7)
+
+Trong kết quả trả về, ta nhìn ra trong database có 3 bảng, gọi là Products, Users, Feedback. Để có thể lấy thêm thông tin về cột ta có thể truy vấn như sau: 
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/d39aa0d3-77b2-4138-af05-2122f45c8c9b)
+
+Output được trả về là:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/a93ecd17-6cba-490e-b288-6d255dfa5b8f)
+
+Output trả về chứa tên các cột và dữ liệu các cột. Tùy vào loại database mà  sẽ có các cách đề truy cập đến bảng informatin schema khác nhau. Ví dụ với Oracle database, bảng đó có tên là all_tables:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/62171669-b760-4cd1-9de4-805aa65c6a21)
+
+11. SQL injection in different contexts - SQL Injection với nhiều bối cảnh khác nhau
+
+Ở các nội dung phía trên, chúng ta thường truy vấn các đoạn chuỗi string để inject trong các payload độc hại. Tuy nhiên, bạn có thể thực hiện SQL Injection sử dụng các input điều khiển để thực thi như một truy vấn SQL trong app. Ví dụ, một vài web có input là JSON hoặc XML, và sử dụng nó làm truy vấn query database.
+
+Để phòng thủ, tránh bị tấn công SQL Injection.  Các app thường để ý input đầu vào là các từ khóa trong SQL, vì vậy bạn có thể bypass các từ khóa đó bằng việc encode hay làm sao để thoát được từ khóa đã bị chặn. Trong ví dụ, dựa theo một kiểu tấn công SQL Injection sử dụng XML , ở đây kí tự S được encode để tránh bị phát hiện:
+![image](https://github.com/phtuanthanh/LabPortwigger/assets/138991479/f87d0188-b67f-42b7-a11a-b5c478ee30e8)
+
+Sau khi encode, nó sẽ được decode trước khi chuyển qua SQL thông dịch.
+Bạn có thể tham khảo thêm về việc thay đổi các thức tấn công ở đây:
+https://portswigger.net/web-security/essential-skills/obfuscating-attacks-using-encodings#obfuscation-via-xml-encoding
+
+12. How to prevent SQL Injection -  Làm sao để ngăn chặn SQL 
 
 
 
